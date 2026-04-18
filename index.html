@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frido Valentine's Day</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+
+      /* Couple mode */
+      --c-bg: #0d0505;
+      --c-accent: #e63946;
+      --c-accent2: #ff6b6b;
+      --c-text: #fff8f0;
+      --c-muted: rgba(255, 248, 240, 0.55);
+      --c-card-bg: rgba(255, 255, 255, 0.05);
+      --c-card-border: rgba(230, 57, 70, 0.25);
+      --c-badge: #e63946;
+      --c-tab-active: #e63946;
+      --c-hero-overlay: linear-gradient(to bottom, rgba(13, 5, 5, 0.35) 0%, rgba(13, 5, 5, 0.7) 60%, #0d0505 100%);
+    }
+
+    body.single-mode {
+      --c-bg: #050508;
+      --c-accent: #c084fc;
+      --c-accent2: #a855f7;
+      --c-text: #f1f0ff;
+      --c-muted: rgba(241, 240, 255, 0.5);
+      --c-card-bg: rgba(255, 255, 255, 0.04);
+      --c-card-border: rgba(192, 132, 252, 0.2);
+      --c-badge: #7c3aed;
+      --c-tab-active: #c084fc;
+      --c-hero-overlay: linear-gradient(to bottom, rgba(5, 5, 8, 0.25) 0%, rgba(5, 5, 8, 0.65) 55%, #050508 100%);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--c-bg);
+      color: var(--c-text);
+      min-height: 100vh;
+      transition: background 0.55s ease, color 0.55s ease;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 5vw;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--c-text);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span {
+      color: var(--c-accent);
+      transition: color 0.55s;
+    }
+
+    /* ── TOGGLE ── */
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 100px;
+      padding: 5px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: background 0.4s cubic-bezier(.4, 0, .2, 1), color 0.4s, transform 0.35s cubic-bezier(.34, 1.56, .64, 1);
+      color: var(--c-muted);
+    }
+
+    .toggle-pill.active {
+      background: var(--c-accent);
+      color: #fff;
+      transform: scale(1.04);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    .toggle-pill .pill-icon {
+      font-size: 1rem;
+    }
+
+    body.single-mode .toggle-pill.couple {
+      background: transparent;
+      color: var(--c-muted);
+      transform: scale(1);
+      box-shadow: none;
+    }
+
+    body.single-mode .toggle-pill.single {
+      background: var(--c-accent);
+      color: #fff;
+      transform: scale(1.04);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    body:not(.single-mode) .toggle-pill.couple {
+      background: var(--c-accent);
+      color: #fff;
+      transform: scale(1.04);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    body:not(.single-mode) .toggle-pill.single {
+      background: transparent;
+      color: var(--c-muted);
+      transform: scale(1);
+      box-shadow: none;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 80px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .hero-video.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: var(--c-hero-overlay);
+      transition: background 0.7s ease;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 20px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--c-accent);
+      margin-bottom: 14px;
+      transition: color 0.55s;
+    }
+
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--c-accent);
+      transition: background 0.55s;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 5.2rem);
+      line-height: 1.1;
+      font-style: italic;
+      font-weight: 700;
+      color: var(--c-text);
+      max-width: 720px;
+      margin: 0 auto 18px;
+      transition: color 0.55s;
+    }
+
+    .hero-title .accent {
+      color: var(--c-accent);
+      transition: color 0.55s;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--c-muted);
+      max-width: 420px;
+      margin: 0 auto 34px;
+      line-height: 1.65;
+      transition: color 0.55s;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--c-accent);
+      color: #fff;
+      padding: 15px 38px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.4s, transform 0.2s, box-shadow 0.4s;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Mode transition shimmer */
+    .mode-flash {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.18) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .mode-flash.flash {
+      opacity: 1;
+      transition: opacity 0s;
+    }
+
+    /* ── SECTION COMMON ── */
+    section {
+      padding: 80px 5vw;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      font-weight: 600;
+      margin-bottom: 10px;
+      transition: color 0.55s;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 48px;
+      max-width: 560px;
+    }
+
+    /* ── CATEGORY TABS ── */
+    .cat-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .cat-tab {
+      padding: 10px 22px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: transparent;
+      color: var(--c-muted);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.28s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .cat-tab:hover {
+      border-color: var(--c-accent);
+      color: var(--c-text);
+    }
+
+    .cat-tab.active {
+      background: var(--c-accent);
+      border-color: var(--c-accent);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    /* ── PRODUCT GRID ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 22px;
+    }
+
+    .product-card {
+      background: var(--c-card-bg);
+      border: 1px solid var(--c-card-border);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: transform 0.28s ease, border-color 0.3s, box-shadow 0.28s;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--c-accent);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .product-img-wrap {
+      position: relative;
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--c-badge);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 100px;
+      transition: background 0.55s;
+    }
+
+    .product-info {
+      padding: 16px;
+    }
+
+    .product-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--c-text);
+      margin-bottom: 8px;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .product-prices {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .price-sale {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--c-accent);
+      transition: color 0.55s;
+    }
+
+    .price-orig {
+      font-size: 0.82rem;
+      color: var(--c-muted);
+      text-decoration: line-through;
+    }
+
+    .btn-cart {
+      width: 100%;
+      padding: 11px;
+      border-radius: 10px;
+      background: var(--c-accent);
+      border: none;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.15s;
+      letter-spacing: 0.03em;
+    }
+
+    .btn-cart:hover {
+      filter: brightness(1.12);
+      transform: scale(1.01);
+    }
+
+    .btn-cart:active {
+      transform: scale(0.97);
+    }
+
+    .skeleton {
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.04) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 18px;
+      aspect-ratio: 1/1.35;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
+    .empty-state {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--c-muted);
+      font-size: 1rem;
+    }
+
+    .empty-state span {
+      display: block;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    /* ── WHY FRIDO ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .why-card {
+      background: var(--c-card-bg);
+      border: 1px solid var(--c-card-border);
+      border-radius: 16px;
+      padding: 28px 22px;
+      transition: border-color 0.3s;
+    }
+
+    .why-card:hover {
+      border-color: var(--c-accent);
+    }
+
+    .why-icon {
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+    }
+
+    .why-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      color: var(--c-text);
+    }
+
+    .why-desc {
+      font-size: 0.82rem;
+      color: var(--c-muted);
+      line-height: 1.5;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 40px 5vw;
+      text-align: center;
+      color: var(--c-muted);
+      font-size: 0.82rem;
+    }
+
+    footer a {
+      color: var(--c-accent);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    /* ── CART TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--c-accent);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      z-index: 300;
+      transition: transform 0.35s cubic-bezier(.34, 1.56, .64, 1), opacity 0.3s;
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ── MODE TEXT TRANSITION ── */
+    .mode-text {
+      transition: opacity 0.35s ease;
+    }
+
+    .mode-text.fading {
+      opacity: 0;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav {
+        padding: 12px 4vw;
+      }
+
+      .toggle-pill {
+        padding: 6px 11px;
+        font-size: 0.7rem;
+      }
+
+      .toggle-pill .label {
+        display: none;
+      }
+
+      section {
+        padding: 60px 4vw;
+      }
+
+      .hero {
+        padding-bottom: 60px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Mode flash overlay -->
+  <div class="mode-flash" id="modeFlash"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">fri<span>do</span></a>
+
+    <div class="toggle-wrap" id="toggleWrap" role="button" aria-label="Toggle couple or single mode">
+      <div class="toggle-pill couple" id="pillCouple">
+        <span class="pill-icon">💑</span>
+        <span class="label">Couple</span>
+      </div>
+      <div class="toggle-pill single" id="pillSingle">
+        <span class="pill-icon">🦋</span>
+        <span class="label">Solo</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <!-- Couple video -->
+    <video class="hero-video" id="videoCouple" autoplay muted loop playsinline preload="auto">
+      <source src="https://cdn.shopify.com/videos/c/o/v/c102dc6ee2be49fc9935403b43e413bb.mp4" type="video/mp4" />
+    </video>
+    <!-- Single video -->
+    <video class="hero-video hidden" id="videoSingle" autoplay muted loop playsinline preload="auto">
+      <source src="https://cdn.shopify.com/videos/c/o/v/452bedba47694a96a7e5684c79a0eeb3.mp4" type="video/mp4" />
+    </video>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow mode-text" id="heroEyebrow">Valentine's Day 2025</div>
+      <h1 class="hero-title mode-text" id="heroTitle">
+        This Valentine's,<br />Gift <span class="accent">Comfort</span>
+      </h1>
+      <p class="hero-sub mode-text" id="heroSub">
+        Because real love feels like being held — even when you're miles apart.
+      </p>
+      <a href="#products" class="hero-cta mode-text" id="heroCta">Shop Gifts ↓</a>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="section-label">Curated for you</div>
+    <h2 class="section-title mode-text" id="productsTitle">Gifts they'll actually use</h2>
+
+    <div class="cat-tabs" id="catTabs">
+      <!-- Tabs injected by JS -->
+    </div>
+
+    <div class="product-grid" id="productGrid">
+      <!-- Skeletons -->
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </div>
+  </section>
+
+  <!-- WHY FRIDO -->
+  <section>
+    <div class="section-label">Why Frido</div>
+    <h2 class="section-title">Comfort that says <em>I love you</em></h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🏆</div>
+        <div class="why-title">Clinically designed</div>
+        <div class="why-desc">Every product built with podiatrists and ergonomic experts.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📦</div>
+        <div class="why-title">Gift-ready packaging</div>
+        <div class="why-desc">Ships in premium boxes — no wrapping needed.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔄</div>
+        <div class="why-title">Easy returns</div>
+        <div class="why-desc">30-day no-questions-asked returns on all orders.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <div class="why-title">Express delivery</div>
+        <div class="why-desc">Guaranteed delivery before Valentine's Day.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p style="margin-bottom:10px;">Made with ❤️ by <strong>Frido</strong> — ergonomic comfort for every body.</p>
+    <p><a href="https://myfrido.com">myfrido.com</a> &nbsp;·&nbsp; <a href="#">Contact</a> &nbsp;·&nbsp; <a
+        href="#">Returns</a></p>
+  </footer>
+
+  <!-- CART TOAST -->
+  <div class="toast" id="toast">Added to cart ✓</div>
+
+  <script>
+    /* =====================================================
+       CONFIG — replace with your real Shopify store details
+       ===================================================== */
+    const SHOPIFY_DOMAIN = 'frido-assignment-yhoehb0i.myshopify.com';
+    const STOREFRONT_TOKEN = '17f866360bd9c4c8ddb5c0f3a6b392dc'; // public token, safe in frontend
+
+    /* Categories per mode */
+    const COUPLE_CATS = ['Sleep', 'Travel', 'WFH', 'GYM'];
+    const SINGLE_CATS = ['Mom', 'Dad', 'BFF', 'Kids'];
+
+    /* Tag mappings — tags on your Shopify products */
+    const TAG_MAP = {
+      Sleep: 'sleep',
+      Travel: 'travel',
+      WFH: 'wfh',
+      GYM: 'gym',
+      Mom: 'mom',
+      Dad: 'dad',
+      BFF: 'bff',
+      Kids: 'kids',
+    };
+
+    /* ── STATE ── */
+    let isSingle = false;
+    let activeTab = COUPLE_CATS[0];
+    let cachedProds = {};   // tag → products[]
+
+    /* =====================================================
+       STOREFRONT API FETCH
+       ===================================================== */
+    async function fetchProductsByTag(tag) {
+      if (cachedProds[tag]) return cachedProds[tag];
+
+      const query = `
+    {
+      products(first: 8, query: "tag:${tag}") {
+        edges {
+          node {
+            id title handle
+            images(first: 1) { edges { node { url altText } } }
+            variants(first: 1) {
+              edges {
+                node {
+                  price { amount currencyCode }
+                  compareAtPrice { amount currencyCode }
+                  availableForSale
+                }
+              }
+            }
+          }
+        }
+      }
+    }`;
+
+      try {
+        const res = await fetch(`https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN,
+          },
+          body: JSON.stringify({ query }),
+        });
+
+        if (!res.ok) throw new Error(`API ${res.status}`);
+        const data = await res.json();
+        const prods = (data?.data?.products?.edges || []).map(e => e.node);
+        cachedProds[tag] = prods;
+        return prods;
+      } catch (err) {
+        console.warn('Storefront API error:', err.message);
+        return getDemoProducts(tag);
+      }
+    }
+
+    /* ── DEMO PRODUCTS (fallback when no API token) ── */
+    function getDemoProducts(tag) {
+      const names = {
+        sleep: ['Cloud Comfort Pillow', 'Memory Foam Topper', 'Cooling Neck Roll', 'Sleep Support Wedge'],
+        travel: ['Inflatable Neck Pillow', 'Travel Compression Socks', 'Portable Lumbar Roll', 'Car Seat Cushion'],
+        wfh: ['Ergonomic Seat Cushion', 'Posture Corrector', 'Standing Desk Mat', 'Wrist Rest Pad'],
+        gym: ['Insoles Pro Sport', 'Compression Knee Sleeve', 'Arch Support Socks', 'Recovery Slippers'],
+        'gift-mom': ['Maternity Pillow', 'Foot Massage Slippers', 'Ergonomic Back Rest', 'Cloud Comfort Cushion'],
+        'gift-dad': ['Car Neck Rest Pillow', 'Office Lumbar Support', 'Sport Insoles', 'Seat Wedge Cushion'],
+        'gift-bff': ['Plantar Fasciitis Insoles', 'Posture Corrector Band', 'Travel Pillow Set', 'Slipper Gift Box'],
+        'gift-kids': ['Kids Arch Insoles', 'School Bag Cushion', 'Junior Seat Cushion', 'Kids Posture Support'],
+      };
+      const prices = [799, 999, 1199, 1499, 1799, 2199];
+      const imgs = [
+        'https://cdn.shopify.com/s/files/1/0553/0419/2034/files/Plantar.png',
+        'https://cdn.shopify.com/s/files/1/0553/0419/2034/files/Slippers.png',
+        'https://cdn.shopify.com/s/files/1/0553/0419/2034/files/PFLP_img_1.jpg',
+        'https://cdn.shopify.com/s/files/1/0553/0419/2034/files/lifestylesplit-CCS_1_1.jpg',
+      ];
+      return (names[tag] || names['sleep']).map((name, i) => {
+        const sp = prices[i % prices.length];
+        const op = Math.round(sp * 1.3);
+        return {
+          id: `demo-${tag}-${i}`,
+          title: name,
+          handle: name.toLowerCase().replace(/ /g, '-'),
+          images: { edges: [{ node: { url: imgs[i % imgs.length], altText: name } }] },
+          variants: {
+            edges: [{
+              node: {
+                price: { amount: String(sp), currencyCode: 'INR' },
+                compareAtPrice: { amount: String(op), currencyCode: 'INR' },
+                availableForSale: true,
+              }
+            }]
+          },
+        };
+      });
+    }
+
+    /* =====================================================
+       RENDER
+       ===================================================== */
+    function fmtPrice(amount, currency) {
+      const n = parseFloat(amount);
+      if (currency === 'INR') return '₹' + n.toLocaleString('en-IN');
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(n);
+    }
+
+    function discount(orig, sale) {
+      return Math.round((1 - parseFloat(sale) / parseFloat(orig)) * 100);
+    }
+
+    function renderSkeletons() {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = Array(4).fill('<div class="skeleton"></div>').join('');
+    }
+
+    function renderProducts(products) {
+      const grid = document.getElementById('productGrid');
+      if (!products.length) {
+        grid.innerHTML = '<div class="empty-state"><span>🎁</span>No products found for this category.</div>';
+        return;
+      }
+      grid.innerHTML = products.map(p => {
+        const img = p.images?.edges?.[0]?.node;
+        const vnt = p.variants?.edges?.[0]?.node;
+        const sale = vnt?.price?.amount || '0';
+        const orig = vnt?.compareAtPrice?.amount;
+        const disc = orig ? discount(orig, sale) : 0;
+        const currency = vnt?.price?.currencyCode || 'INR';
+        const available = vnt?.availableForSale !== false;
+        const url = `https://${SHOPIFY_DOMAIN}/products/${p.handle}`;
+
+        return `
+    <div class="product-card" onclick="window.open('${url}','_blank')">
+      <div class="product-img-wrap">
+        ${img ? `<img src="${img.url}" alt="${img.altText || p.title}" loading="lazy" />` : ''}
+        ${disc > 0 ? `<span class="badge">-${disc}%</span>` : ''}
+      </div>
+      <div class="product-info">
+        <div class="product-name">${p.title}</div>
+        <div class="product-prices">
+          <span class="price-sale">${fmtPrice(sale, currency)}</span>
+          ${orig ? `<span class="price-orig">${fmtPrice(orig, currency)}</span>` : ''}
+        </div>
+        <button class="btn-cart" onclick="handleCart(event,'${p.title}')">
+          ${available ? 'Add to Cart' : 'Out of Stock'}
+        </button>
+      </div>
+    </div>`;
+      }).join('');
+    }
+
+    async function loadProducts(tab) {
+      renderSkeletons();
+      const tag = TAG_MAP[tab] || 'sleep';
+      const prods = await fetchProductsByTag(tag);
+      renderProducts(prods);
+    }
+
+    /* =====================================================
+       TABS
+       ===================================================== */
+    function renderTabs() {
+      const cats = isSingle ? SINGLE_CATS : COUPLE_CATS;
+      if (!cats.includes(activeTab)) activeTab = cats[0];
+      const wrap = document.getElementById('catTabs');
+      wrap.innerHTML = cats.map(c => `
+    <button class="cat-tab${c === activeTab ? ' active' : ''}" onclick="selectTab('${c}')">${c}</button>
+  `).join('');
+    }
+
+    function selectTab(tab) {
+      activeTab = tab;
+      renderTabs();
+      loadProducts(tab);
+    }
+
+    /* =====================================================
+       MODE TOGGLE
+       ===================================================== */
+    function animateModeText(fn) {
+      const els = document.querySelectorAll('.mode-text');
+      els.forEach(el => el.classList.add('fading'));
+      setTimeout(() => { fn(); els.forEach(el => el.classList.remove('fading')); }, 320);
+    }
+
+    function applyModeUI() {
+      const flash = document.getElementById('modeFlash');
+      flash.classList.add('flash');
+      setTimeout(() => flash.classList.remove('flash'), 180);
+
+      animateModeText(() => {
+        if (isSingle) {
+          document.getElementById('heroEyebrow').textContent = 'Solo Valentine\'s 2025';
+          document.getElementById('heroTitle').innerHTML = 'Be Your Own <span class="accent">Bae</span>';
+          document.getElementById('heroSub').textContent = 'You don\'t need a partner to spoil yourself. Treat yourself to pure comfort this Valentine\'s.';
+          document.getElementById('heroCta').textContent = 'Shop for Yourself ↓';
+          document.getElementById('productsTitle').textContent = 'Gifts for the ones you love';
+        } else {
+          document.getElementById('heroEyebrow').textContent = 'Valentine\'s Day 2025';
+          document.getElementById('heroTitle').innerHTML = 'This Valentine\'s,<br />Gift <span class="accent">Comfort</span>';
+          document.getElementById('heroSub').textContent = 'Because real love feels like being held — even when you\'re miles apart.';
+          document.getElementById('heroCta').textContent = 'Shop Gifts ↓';
+          document.getElementById('productsTitle').textContent = 'Gifts they\'ll actually use';
+        }
+      });
+
+      /* Video swap */
+      const vc = document.getElementById('videoCouple');
+      const vs = document.getElementById('videoSingle');
+      if (isSingle) {
+        vc.classList.add('hidden'); vs.classList.remove('hidden'); vs.play();
+      } else {
+        vs.classList.add('hidden'); vc.classList.remove('hidden'); vc.play();
+      }
+    }
+
+    document.getElementById('toggleWrap').addEventListener('click', () => {
+      isSingle = !isSingle;
+      document.body.classList.toggle('single-mode', isSingle);
+      applyModeUI();
+      renderTabs();
+      loadProducts(activeTab);
+    });
+
+    /* =====================================================
+       CART
+       ===================================================== */
+    function handleCart(e, name) {
+      e.stopPropagation();
+      const toast = document.getElementById('toast');
+      toast.textContent = `"${name}" added to cart ✓`;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    /* =====================================================
+       INIT
+       ===================================================== */
+    renderTabs();
+    loadProducts(activeTab);
+  </script>
+</body>
+
+</html>
