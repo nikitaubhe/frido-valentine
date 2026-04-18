@@ -42,6 +42,7 @@ Single Mode:
 - Kids  
 
 - Filtering is implemented using **product tags**
+  
  🧠 Tech Stack
 - HTML  
 - CSS (Custom + Animations)  
