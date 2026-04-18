@@ -492,7 +492,7 @@
       margin-bottom: 10px;
     }
 
-    /* ── WHY FRIDO ── */
+
     .why-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -577,7 +577,7 @@
       opacity: 0;
     }
 
-    /* ── RESPONSIVE ── */
+    /*RESPONSIVE */
     @media (max-width: 640px) {
       nav {
         padding: 12px 4vw;
@@ -605,7 +605,7 @@
 
 <body>
 
-  <!-- Mode flash overlay -->
+
   <div class="mode-flash" id="modeFlash"></div>
 
   <!-- NAV -->
@@ -655,7 +655,7 @@
     <h2 class="section-title mode-text" id="productsTitle">Gifts they'll actually use</h2>
 
     <div class="cat-tabs" id="catTabs">
-      <!-- Tabs injected by JS -->
+      <!-- Tabs  -->
     </div>
 
     <div class="product-grid" id="productGrid">
@@ -706,17 +706,15 @@
   <div class="toast" id="toast">Added to cart ✓</div>
 
   <script>
-    /* =====================================================
-       CONFIG — replace with your real Shopify store details
-       ===================================================== */
+
     const SHOPIFY_DOMAIN = 'frido-assignment-yhoehb0i.myshopify.com';
-    const STOREFRONT_TOKEN = '17f866360bd9c4c8ddb5c0f3a6b392dc'; // public token, safe in frontend
+    const STOREFRONT_TOKEN = '17f866360bd9c4c8ddb5c0f3a6b392dc'; // public token//
 
     /* Categories per mode */
     const COUPLE_CATS = ['Sleep', 'Travel', 'WFH', 'GYM'];
     const SINGLE_CATS = ['Mom', 'Dad', 'BFF', 'Kids'];
 
-    /* Tag mappings — tags on your Shopify products */
+    /* Tag mappings */
     const TAG_MAP = {
       Sleep: 'sleep',
       Travel: 'travel',
@@ -733,9 +731,7 @@
     let activeTab = COUPLE_CATS[0];
     let cachedProds = {};   // tag → products[]
 
-    /* =====================================================
-       STOREFRONT API FETCH
-       ===================================================== */
+    /* STOREFRONT */
     async function fetchProductsByTag(tag) {
       if (cachedProds[tag]) return cachedProds[tag];
 
@@ -781,49 +777,7 @@
       }
     }
 
-    /* ── DEMO PRODUCTS (fallback when no API token) ── */
-    function getDemoProducts(tag) {
-      const names = {
-        sleep: ['Cloud Comfort Pillow', 'Memory Foam Topper', 'Cooling Neck Roll', 'Sleep Support Wedge'],
-        travel: ['Inflatable Neck Pillow', 'Travel Compression Socks', 'Portable Lumbar Roll', 'Car Seat Cushion'],
-        wfh: ['Ergonomic Seat Cushion', 'Posture Corrector', 'Standing Desk Mat', 'Wrist Rest Pad'],
-        gym: ['Insoles Pro Sport', 'Compression Knee Sleeve', 'Arch Support Socks', 'Recovery Slippers'],
-        'gift-mom': ['Maternity Pillow', 'Foot Massage Slippers', 'Ergonomic Back Rest', 'Cloud Comfort Cushion'],
-        'gift-dad': ['Car Neck Rest Pillow', 'Office Lumbar Support', 'Sport Insoles', 'Seat Wedge Cushion'],
-        'gift-bff': ['Plantar Fasciitis Insoles', 'Posture Corrector Band', 'Travel Pillow Set', 'Slipper Gift Box'],
-        'gift-kids': ['Kids Arch Insoles', 'School Bag Cushion', 'Junior Seat Cushion', 'Kids Posture Support'],
-      };
-      const prices = [799, 999, 1199, 1499, 1799, 2199];
-      const imgs = [
-        'https://cdn.shopify.com/s/files/1/0553/0419/2034/files/Plantar.png',
-        'https://cdn.shopify.com/s/files/1/0553/0419/2034/files/Slippers.png',
-        'https://cdn.shopify.com/s/files/1/0553/0419/2034/files/PFLP_img_1.jpg',
-        'https://cdn.shopify.com/s/files/1/0553/0419/2034/files/lifestylesplit-CCS_1_1.jpg',
-      ];
-      return (names[tag] || names['sleep']).map((name, i) => {
-        const sp = prices[i % prices.length];
-        const op = Math.round(sp * 1.3);
-        return {
-          id: `demo-${tag}-${i}`,
-          title: name,
-          handle: name.toLowerCase().replace(/ /g, '-'),
-          images: { edges: [{ node: { url: imgs[i % imgs.length], altText: name } }] },
-          variants: {
-            edges: [{
-              node: {
-                price: { amount: String(sp), currencyCode: 'INR' },
-                compareAtPrice: { amount: String(op), currencyCode: 'INR' },
-                availableForSale: true,
-              }
-            }]
-          },
-        };
-      });
-    }
-
-    /* =====================================================
-       RENDER
-       ===================================================== */
+    /* RENDER */
     function fmtPrice(amount, currency) {
       const n = parseFloat(amount);
       if (currency === 'INR') return '₹' + n.toLocaleString('en-IN');
@@ -882,9 +836,7 @@
       renderProducts(prods);
     }
 
-    /* =====================================================
-       TABS
-       ===================================================== */
+
     function renderTabs() {
       const cats = isSingle ? SINGLE_CATS : COUPLE_CATS;
       if (!cats.includes(activeTab)) activeTab = cats[0];
@@ -900,9 +852,7 @@
       loadProducts(tab);
     }
 
-    /* =====================================================
-       MODE TOGGLE
-       ===================================================== */
+    /* MODE TOGGLE */
     function animateModeText(fn) {
       const els = document.querySelectorAll('.mode-text');
       els.forEach(el => el.classList.add('fading'));
@@ -948,9 +898,7 @@
       loadProducts(activeTab);
     });
 
-    /* =====================================================
-       CART
-       ===================================================== */
+    /* CART */
     function handleCart(e, name) {
       e.stopPropagation();
       const toast = document.getElementById('toast');
@@ -959,9 +907,7 @@
       setTimeout(() => toast.classList.remove('show'), 2800);
     }
 
-    /* =====================================================
-       INIT
-       ===================================================== */
+    /* INIT */
     renderTabs();
     loadProducts(activeTab);
   </script>
